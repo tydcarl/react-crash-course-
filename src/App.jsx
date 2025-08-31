@@ -5,9 +5,21 @@ import Modal from "./components/Modal.jsx";
 import Counter from "./components/Counter.jsx";
 import React, { useState } from "react";
 
-function App() {    
-  return <Counter />
+function App() {
   const [showModal, setShowModal] = useState(false);
+
+  function onTodoDelete() {
+    setShowModal(true);
+    console.log("onTodoDelete()");
+  }
+
+  function cancelModal() {
+    setShowModal(false);
+  }
+
+  function confirmModal() {
+    setShowModal(false);
+  }
 
   return (
     <div>
@@ -23,16 +35,28 @@ function App() {
       </div>
       <div className="todo__wrapper">
         <Todo
+          onTodoDelete={onTodoDelete}
           title="Finish FES"
           paragraph="Code along with FrontendSimplified step by step"
         />
         <Todo
+          onTodoDelete={onTodoDelete}
           title="Finish Interview Section"
           paragraph="Finish every interview question in the next six weeks"
         />
-        <Todo title="Land a $100k Job" paragraph="Apply to 100 Jobs" />
+        <Todo
+          onTodoDelete={onTodoDelete}
+          title="Land a $100k Job"
+          paragraph="Apply to 100 Jobs"
+        />
       </div>
-      {showModal && <Modal title="Confirm delete?" />}
+      {showModal && (
+        <Modal
+          cancelModal={cancelModal}
+          confirmModal={confirmModal}
+          title="Confirm delete?"
+        />
+      )}
     </div>
   );
 }
